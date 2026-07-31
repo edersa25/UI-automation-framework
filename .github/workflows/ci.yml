@@ -34,3 +34,6 @@ jobs:
 
       - name: Run Tests
         run: pipenv run pytest
+
+      - name: Create .env file
+        run: cp .env.example .env
