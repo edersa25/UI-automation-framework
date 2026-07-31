@@ -21,6 +21,6 @@ def test_login_attempts(page: Page, website_url, username, password):
     login_page.login(username, password)
 
     if username == "standard_user" and password == "secret_sauce":
-        expect(page).to_have_url(lambda url: "inventory.html" in url)
+        assert "inventory.html" in page.url
     else:
         expect(login_page.error_message).to_be_visible()
