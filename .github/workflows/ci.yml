@@ -1,0 +1,36 @@
+name: UI Automation CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pipenv
+        run: pip install pipenv
+
+      - name: Install Dependencies
+        run: pipenv install
+
+      - name: Install Playwright Browsers
+        run: pipenv run playwright install --with-deps
+
+      - name: Run Ruff
+        run: pipenv run ruff check .
+
+      - name: Run Black
+        run: pipenv run black --check .
+
+      - name: Run Tests
+        run: pipenv run pytest
